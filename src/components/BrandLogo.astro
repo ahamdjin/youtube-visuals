@@ -1,0 +1,25 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  size?: number;
+}
+
+const { src, alt, size = 44 } = Astro.props;
+---
+
+<img
+  class="brand-logo"
+  src={src}
+  alt={alt}
+  width={size}
+  height={size}
+  loading="eager"
+/>
+
+<style>
+  .brand-logo {
+    object-fit: contain;
+    filter: grayscale(1) contrast(1.15);
+  }
+</style>
