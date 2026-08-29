@@ -1,169 +1,367 @@
 ---
 import { Icon } from 'astro-icon/components';
 import VisualLayout from '../../layouts/VisualLayout.astro';
-import ComparisonCard from '../../components/ComparisonCard.astro';
-import FeatureRow from '../../components/FeatureRow.astro';
 import BrandLogo from '../../components/BrandLogo.astro';
 
 const hermesLogo = 'https://hermes-agent.nousresearch.com/favicon.ico';
+
+const rows = [
+  {
+    icon: 'lucide:rocket',
+    feature: 'Fast setup',
+    managed: true,
+    managedNote: 'Guided setup in hPanel',
+    vps: true,
+    vpsNote: 'Fast Hostinger VPS setup',
+  },
+  {
+    icon: 'lucide:clock-3',
+    feature: 'Runs 24/7 in the cloud',
+    managed: true,
+    managedNote: 'Always-on managed environment',
+    vps: true,
+    vpsNote: 'Always-on VPS',
+  },
+  {
+    icon: 'lucide:terminal',
+    feature: 'Full Hermes CLI',
+    managed: true,
+    managedNote: 'Inside the Hermes environment',
+    vps: true,
+    vpsNote: 'Directly on your server',
+  },
+  {
+    icon: 'lucide:shield-check',
+    feature: 'Server maintenance handled for you',
+    managed: true,
+    managedNote: 'Hostinger handles the server layer',
+    vps: false,
+    vpsNote: 'You manage the server',
+  },
+  {
+    icon: 'lucide:key-round',
+    feature: 'Root server access',
+    managed: false,
+    managedNote: 'No underlying host access',
+    vps: true,
+    vpsNote: 'Full root access',
+  },
+  {
+    icon: 'lucide:package-plus',
+    feature: 'Install anything on the server',
+    managed: false,
+    managedNote: 'Limited to the managed environment',
+    vps: true,
+    vpsNote: 'Docker, Codex CLI, custom services',
+  },
+  {
+    icon: 'lucide:sliders-horizontal',
+    feature: 'Full infrastructure control',
+    managed: false,
+    managedNote: 'Infrastructure is managed for you',
+    vps: true,
+    vpsNote: 'You control the whole environment',
+  },
+];
 ---
 
 <VisualLayout
-  title="Managed Hermes vs VPS"
-  description="Managed Hermes compared with running Hermes on your own VPS."
+  title="Managed Hermes vs VPS Hermes"
+  description="A simple side-by-side comparison of Hostinger Managed Hermes and running Hermes on a Hostinger VPS."
 >
-  <div class="visual-header">
-    <div>
-      <div class="brand-line">
-        <BrandLogo src={hermesLogo} alt="Hermes Agent" size={32} />
-        <span>Hermes Agent</span>
+  <div class="comparison-page">
+    <header class="page-header">
+      <div class="title-wrap">
+        <div class="brand-line">
+          <BrandLogo src={hermesLogo} alt="Hermes Agent" size={34} />
+          <span>Hermes Agent</span>
+        </div>
+        <h1>Managed Hermes <span>vs</span> VPS Hermes</h1>
       </div>
-      <p class="visual-kicker">Hosting comparison</p>
-      <h1 class="visual-title">Managed or VPS?</h1>
-    </div>
 
-    <div class="header-note">
-      <Icon name="lucide:server-cog" />
-      <p>Same agent.<br /><strong>Different level of control.</strong></p>
-    </div>
+      <p class="summary">Both are fast and capable.<br /><strong>The difference is control.</strong></p>
+    </header>
+
+    <section class="matrix" aria-label="Managed Hermes versus VPS Hermes comparison">
+      <div class="matrix-head feature-head">Feature</div>
+
+      <div class="matrix-head option-head">
+        <div class="option-icon"><Icon name="lucide:cloud" /></div>
+        <div>
+          <strong>Managed Hermes</strong>
+          <span>Hostinger manages the server</span>
+        </div>
+      </div>
+
+      <div class="matrix-head option-head">
+        <div class="option-icon"><Icon name="lucide:server" /></div>
+        <div>
+          <strong>VPS Hermes</strong>
+          <span>You control the server</span>
+        </div>
+      </div>
+
+      {rows.map((row) => (
+        <>
+          <div class="feature-cell">
+            <div class="feature-icon"><Icon name={row.icon} /></div>
+            <strong>{row.feature}</strong>
+          </div>
+
+          <div class="value-cell">
+            <div class:list={['status', row.managed ? 'yes' : 'no']}>
+              <Icon name={row.managed ? 'lucide:check' : 'lucide:x'} />
+            </div>
+            <span>{row.managedNote}</span>
+          </div>
+
+          <div class="value-cell">
+            <div class:list={['status', row.vps ? 'yes' : 'no']}>
+              <Icon name={row.vps ? 'lucide:check' : 'lucide:x'} />
+            </div>
+            <span>{row.vpsNote}</span>
+          </div>
+        </>
+      ))}
+    </section>
+
+    <footer class="page-footer">
+      <div><span>Managed</span><strong>Best for simplicity</strong></div>
+      <div class="divider"></div>
+      <div><span>VPS</span><strong>Best for flexibility</strong></div>
+    </footer>
   </div>
 
-  <div class="comparison-grid">
-    <ComparisonCard
-      title="Managed Hermes"
-      description="Hostinger manages the server layer so you can focus on configuring and using Hermes."
-      badge="Simpler"
-      headerIcon="lucide:cloud"
-      brandLogo={hermesLogo}
-      brandAlt="Hermes Agent"
-      bestFor="Speed & simplicity"
-    >
-      <FeatureRow
-        icon="lucide:rocket"
-        title="Fast guided setup"
-        text="Get running from hPanel"
-      />
-      <FeatureRow
-        icon="lucide:shield-check"
-        title="Updates & core security"
-        text="Handled for you"
-      />
-      <FeatureRow
-        icon="lucide:square-terminal"
-        title="Full CLI access"
-        text="Inside the Hermes environment"
-      />
-      <FeatureRow
-        icon="lucide:gauge"
-        title="Less maintenance"
-        text="Less server work day to day"
-      />
-      <FeatureRow
-        icon="lucide:key-round"
-        title="No root access"
-        text="To the underlying host server"
-        available={false}
-      />
-    </ComparisonCard>
-
-    <ComparisonCard
-      title="VPS Hermes"
-      description="You run Hermes on your own VPS and control the server, tools, and surrounding environment."
-      badge="More control"
-      headerIcon="lucide:server"
-      brandLogo={hermesLogo}
-      brandAlt="Hermes Agent"
-      bestFor="Power & flexibility"
-    >
-      <FeatureRow
-        icon="lucide:key-round"
-        title="Full server control"
-        text="Root access to the VPS"
-      />
-      <FeatureRow
-        icon="lucide:package-plus"
-        title="Install your own tools"
-        text="Docker, Codex CLI, custom services"
-      />
-      <FeatureRow
-        icon="lucide:sliders-horizontal"
-        title="More customization"
-        text="Models, memory, tools, and config"
-      />
-      <FeatureRow
-        icon="lucide:database"
-        title="Your own infrastructure"
-        text="For agent data and workloads"
-      />
-      <FeatureRow
-        icon="lucide:wrench"
-        title="You maintain it"
-        text="Updates, backups, firewall, containers"
-        available={false}
-      />
-    </ComparisonCard>
-  </div>
-</VisualLayout>
-
-<style>
-  .visual-header {
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-    gap: 40px;
-    margin-bottom: clamp(25px, 2.3vw, 38px);
-  }
-
-  .brand-line {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-    font-size: 16px;
-    line-height: 1;
-    font-weight: 780;
-  }
-
-  .header-note {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding-bottom: 4px;
-    color: #777;
-  }
-
-  .header-note :global(svg) {
-    width: 34px;
-    height: 34px;
-    color: #111;
-    stroke-width: 1.5;
-  }
-
-  .header-note p {
-    margin: 0;
-    text-align: right;
-    font-size: clamp(16px, 1.15vw, 20px);
-    line-height: 1.35;
-  }
-
-  .header-note strong {
-    color: #111;
-    font-weight: 760;
-  }
-
-  .comparison-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(18px, 1.6vw, 26px);
-    height: calc(100% - 170px);
-  }
-
-  @media (max-width: 980px) {
-    .visual-header { align-items: start; }
-    .header-note { display: none; }
-    .comparison-grid {
-      grid-template-columns: 1fr;
-      height: auto;
+  <style>
+    .comparison-page {
+      min-height: calc(100vh - 112px);
+      display: flex;
+      flex-direction: column;
+      width: 100%;
     }
-  }
-</style>
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 48px;
+      padding-bottom: 24px;
+      border-bottom: 2px solid #111;
+    }
+
+    .brand-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 13px;
+      font-size: 16px;
+      font-weight: 750;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(42px, 4.4vw, 76px);
+      line-height: .96;
+      letter-spacing: -.055em;
+      font-weight: 800;
+    }
+
+    h1 span {
+      color: #8a8a8a;
+      font-weight: 500;
+    }
+
+    .summary {
+      margin: 0 0 4px;
+      color: #666;
+      font-size: clamp(16px, 1.3vw, 21px);
+      line-height: 1.38;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .summary strong { color: #111; }
+
+    .matrix {
+      flex: 1;
+      display: grid;
+      grid-template-columns: minmax(250px, 1.12fr) minmax(300px, 1fr) minmax(300px, 1fr);
+      grid-template-rows: auto repeat(7, minmax(64px, 1fr));
+      border-left: 1px solid #dedede;
+      border-top: 1px solid #dedede;
+      margin-top: 22px;
+    }
+
+    .matrix > div {
+      border-right: 1px solid #dedede;
+      border-bottom: 1px solid #dedede;
+    }
+
+    .matrix-head {
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      padding: 16px 20px;
+      background: #fafafa;
+    }
+
+    .feature-head {
+      color: #777;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .option-head {
+      gap: 13px;
+    }
+
+    .option-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 1px solid #d9d9d9;
+      border-radius: 50%;
+      background: #fff;
+    }
+
+    .option-icon :global(svg) {
+      width: 21px;
+      height: 21px;
+      stroke-width: 1.8;
+    }
+
+    .option-head strong {
+      display: block;
+      margin-bottom: 3px;
+      font-size: clamp(19px, 1.55vw, 25px);
+      line-height: 1.05;
+      letter-spacing: -.025em;
+    }
+
+    .option-head span {
+      display: block;
+      color: #777;
+      font-size: 13px;
+    }
+
+    .feature-cell,
+    .value-cell {
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+    }
+
+    .feature-cell {
+      gap: 13px;
+    }
+
+    .feature-icon {
+      flex: 0 0 auto;
+      width: 35px;
+      height: 35px;
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      background: #f5f5f5;
+    }
+
+    .feature-icon :global(svg) {
+      width: 18px;
+      height: 18px;
+      stroke-width: 1.8;
+    }
+
+    .feature-cell strong {
+      font-size: clamp(16px, 1.3vw, 21px);
+      line-height: 1.2;
+      letter-spacing: -.02em;
+    }
+
+    .value-cell {
+      gap: 12px;
+    }
+
+    .status {
+      flex: 0 0 auto;
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+    }
+
+    .status :global(svg) {
+      width: 19px;
+      height: 19px;
+      stroke-width: 3;
+    }
+
+    .status.yes {
+      color: #2563eb;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+    }
+
+    .status.no {
+      color: #dc2626;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+    }
+
+    .value-cell > span {
+      color: #4f4f4f;
+      font-size: clamp(14px, 1.05vw, 17px);
+      line-height: 1.25;
+    }
+
+    .page-footer {
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr;
+      align-items: center;
+      gap: 24px;
+      padding-top: 18px;
+    }
+
+    .page-footer > div:not(.divider) {
+      display: flex;
+      justify-content: center;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .page-footer span {
+      color: #888;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .page-footer strong {
+      font-size: clamp(16px, 1.3vw, 21px);
+      letter-spacing: -.02em;
+    }
+
+    .divider {
+      width: 1px;
+      height: 24px;
+      background: #ddd;
+    }
+
+    @media (max-width: 980px) {
+      .comparison-page { min-height: auto; }
+      .page-header { align-items: flex-start; }
+      .summary { display: none; }
+      .matrix {
+        overflow-x: auto;
+        grid-template-columns: 230px 285px 285px;
+        grid-template-rows: auto repeat(7, auto);
+      }
+      .page-footer { display: none; }
+    }
+  </style>
+</VisualLayout>
