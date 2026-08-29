@@ -1,0 +1,160 @@
+---
+import { Icon } from 'astro-icon/components';
+import BrandLogo from './BrandLogo.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  badge: string;
+  headerIcon: string;
+  brandLogo?: string;
+  brandAlt?: string;
+  bestFor: string;
+}
+
+const {
+  title,
+  description,
+  badge,
+  headerIcon,
+  brandLogo,
+  brandAlt = '',
+  bestFor
+} = Astro.props;
+---
+
+<article class="comparison-card">
+  <header class="card-header">
+    <div class="header-mark" aria-hidden="true">
+      <Icon name={headerIcon} />
+    </div>
+
+    <div class="header-copy">
+      <div class="title-line">
+        {brandLogo && <BrandLogo src={brandLogo} alt={brandAlt} size={28} />}
+        <h2>{title}</h2>
+      </div>
+      <p>{description}</p>
+    </div>
+
+    <span class="badge">{badge}</span>
+  </header>
+
+  <div class="features">
+    <slot />
+  </div>
+
+  <footer class="card-footer">
+    <span>Best for</span>
+    <strong>{bestFor}</strong>
+  </footer>
+</article>
+
+<style>
+  .comparison-card {
+    min-width: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(22px, 2vw, 31px);
+    border: 1px solid #d9d9d9;
+    border-radius: 24px;
+    background: #fff;
+  }
+
+  .card-header {
+    display: grid;
+    grid-template-columns: 58px 1fr auto;
+    gap: 16px;
+    align-items: start;
+    padding-bottom: 22px;
+    border-bottom: 1px solid #e8e8e8;
+  }
+
+  .header-mark {
+    width: 58px;
+    height: 58px;
+    display: grid;
+    place-items: center;
+    border: 1px solid #dedede;
+    border-radius: 16px;
+    background: #fff;
+  }
+
+  .header-mark :global(svg) {
+    width: 29px;
+    height: 29px;
+    stroke-width: 1.65;
+  }
+
+  .header-copy { min-width: 0; }
+
+  .title-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  h2 {
+    margin: 2px 0 0;
+    font-size: clamp(31px, 2.4vw, 42px);
+    line-height: 1;
+    letter-spacing: -.045em;
+    font-weight: 790;
+  }
+
+  p {
+    margin: 9px 0 0;
+    max-width: 490px;
+    color: #6b6b6b;
+    font-size: clamp(15px, 1.1vw, 18px);
+    line-height: 1.42;
+  }
+
+  .badge {
+    padding: 8px 11px;
+    border: 1px solid #d9d9d9;
+    border-radius: 999px;
+    color: #3d3d3d;
+    font-size: 13px;
+    line-height: 1;
+    font-weight: 760;
+    white-space: nowrap;
+  }
+
+  .features {
+    padding-top: 10px;
+  }
+
+  .card-footer {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid #e8e8e8;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .card-footer span {
+    color: #8a8a8a;
+    font-size: 12px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+  }
+
+  .card-footer strong {
+    font-size: clamp(22px, 1.7vw, 29px);
+    line-height: 1;
+    letter-spacing: -.03em;
+    font-weight: 790;
+  }
+
+  @media (max-width: 1100px) {
+    .card-header { grid-template-columns: 50px 1fr; }
+    .header-mark { width: 50px; height: 50px; }
+    .badge { grid-column: 2; justify-self: start; }
+  }
+</style>
