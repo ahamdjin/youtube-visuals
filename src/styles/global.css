@@ -4,9 +4,8 @@
   --line: #e5e5e5;
   --soft: #f7f7f7;
   --white: #ffffff;
-  --radius-lg: 28px;
-  --radius-md: 18px;
-  --shadow-soft: 0 18px 60px rgba(0,0,0,.06);
+  --blue: #2563eb;
+  --red: #dc2626;
 }
 
 * { box-sizing: border-box; }
@@ -23,28 +22,21 @@ html, body {
 body { min-height: 100vh; }
 
 a { color: inherit; }
-
 button, input, textarea, select { font: inherit; }
-
 img, svg { display: block; }
 
+/* Every visual is a real full page, not a card floating inside the browser. */
 .visual-page {
+  width: 100%;
   min-height: 100vh;
-  display: grid;
-  place-items: center;
-  padding: 24px;
-  background: #f4f4f4;
+  background: #fff;
 }
 
 .visual-canvas {
-  width: min(1600px, calc(100vw - 48px));
-  aspect-ratio: 16 / 9;
-  min-height: 760px;
-  overflow: hidden;
+  width: 100%;
+  min-height: 100vh;
   background: #fff;
-  border: 1px solid #dedede;
-  box-shadow: var(--shadow-soft);
-  padding: clamp(34px, 3.4vw, 60px);
+  padding: clamp(28px, 3vw, 56px);
 }
 
 .visual-kicker {
@@ -73,12 +65,5 @@ img, svg { display: block; }
 }
 
 @media (max-width: 980px) {
-  .visual-page { padding: 0; background: #fff; }
-  .visual-canvas {
-    width: 100%;
-    aspect-ratio: auto;
-    min-height: 100vh;
-    border: 0;
-    box-shadow: none;
-  }
+  .visual-canvas { padding: 24px; }
 }
